@@ -13,10 +13,11 @@
 class HashEntry
 {       
     public:
-        HashEntry(std::string userId);
+        HashEntry(std::string);
         std::string getPassword();
         std::string getUerID();
-        void setPassword();
+        void setPassword(std::string);
+        void setRandomPassword();
         HashEntry* getNext();
         
 

@@ -40,7 +40,7 @@ void readWritePasswords()
             std::string userID = line.substr(0,spacePosition);
             
             HashEntry he(userID);
-            
+            he.setRandomPassword();
             outputTextFile << he.getUerID() << " " << he.getPassword() << std::endl;
             
             

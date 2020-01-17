@@ -10,7 +10,6 @@
 HashEntry::HashEntry(std::string userId)
 {
     HashEntry::userID = userId;
-    setPassword();
 }
 
 std::string HashEntry::getPassword()
@@ -27,7 +26,11 @@ HashEntry * HashEntry::getNext()
 {
     return next;
 }
-void HashEntry::setPassword()
+void HashEntry::setPassword(std::string myPassword)
+{
+    HashEntry::password = myPassword;
+}
+void HashEntry::setRandomPassword()
 {
     
     std::string tempPassword = "";
