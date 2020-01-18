@@ -9,7 +9,16 @@
 
 HashEntry::HashEntry(std::string userId)
 {
-    HashEntry::userID = userId;
+    //convert the userID to lowercase for the encryption alg
+    char c;
+    std::string temp;
+    std::string::size_type i;
+    for(i=0;i<userId.size();i++)
+    {
+        c = std::tolower(userId[i]);
+        temp = temp + c;
+    } 
+    HashEntry::userID = temp;
 }
 
 std::string HashEntry::getPassword()
