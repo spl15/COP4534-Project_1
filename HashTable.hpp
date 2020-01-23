@@ -11,17 +11,20 @@
 #include <iostream>
 #include "HashEntry.hpp"
 
+
 class HashTable
 {       
     public:
         HashTable();
-        void insertEntry(HashEntry *);
-        void deleteEntry(HashEntry *);
+        void insertEntry(std::string, std::string);
+        void find(std::string);
+        //void deleteEntry(HashEntry *);
         int HashFunction(std::string);
+        HashEntry* getBucket(int);
 
     private:
         const int NUM_OF_BUCKETS = 90000;
-        HashEntry * buckets[];
+        HashEntry* buckets[90000];
 };
 
 #endif

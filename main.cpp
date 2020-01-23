@@ -4,18 +4,26 @@
 #include <time.h>
 #include "HashEntry.hpp"
 #include <string.h>
+#include "HashTable.hpp"
 
 void readWritePasswords(std::string);
 std::string encrypt(std::string, std::string);
 void encryptPasswords(std::string);
-int main()
+void createTable(std::string, HashTable*);
+int main(int argc, char *argv[])
 {
     srand(time(0));
     
     readWritePasswords("lastNames.txt");
     encryptPasswords("raw.txt");
-
-    std::cout << encrypt("lamaliestephen","pauljones") << std::endl;
+    HashTable ht;
+    HashTable* htPtr = &ht;
+    createTable("encrypted.txt", htPtr);
+    ht.find("smith");
+   // HashTable ht;
+  //  ht.insertEntry("lamalie", "jdhfgtrie");
+   // ht.find("lamalie");
+    
     return 0;
 }
 void encryptPasswords(std::string myString)
@@ -58,6 +66,44 @@ void encryptPasswords(std::string myString)
     }
     
 }
+void createTable(std::string myString, HashTable* tablePtr)
+{
+    //string variable for parsing the file line by line
+    std::string line = "";
+
+    //file to input
+    std::ifstream inputTextFile(myString); 
+
+   
+    //check if the file is open
+    if(inputTextFile.is_open())
+    {
+
+       
+
+
+        while(getline(inputTextFile, line))
+        {
+            //finds the first space position
+            int spacePosition = line.find(" ");
+            //stores the first word in line 
+            std::string userID = line.substr(0,spacePosition);
+            //stores the next column assumed to be password field
+            ++spacePosition;
+            std::string password =line.substr(spacePosition);
+            tablePtr->insertEntry(userID,password);
+            
+        }
+
+        inputTextFile.close();
+    }
+    else
+    {
+        std::cerr << "Unable to open file"<< std::endl;        
+    }
+    
+}
+
 std::string encrypt(std::string tempIn, std::string key)
 {
     //needed type to make compiler happy when comparing strings and ints

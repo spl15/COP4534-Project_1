@@ -19,6 +19,7 @@ class HashEntry
         void setPassword(std::string);
         void setRandomPassword();
         HashEntry* getNext();
+        void setNext(HashEntry*);
         
 
     private:

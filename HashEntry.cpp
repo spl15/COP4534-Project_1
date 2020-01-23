@@ -59,6 +59,10 @@ void HashEntry::setRandomPassword()
 
     HashEntry::password = tempPassword;
 }
+void HashEntry::setNext(HashEntry* tempNext)
+{
+    HashEntry::next = tempNext;
+}
 /*
 int main()
 {
