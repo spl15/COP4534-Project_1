@@ -17,7 +17,7 @@ class HashTable
     public:
         HashTable();
         void insertEntry(std::string, std::string);
-        void find(std::string);
+        HashEntry* find(std::string);
         //void deleteEntry(HashEntry *);
         int HashFunction(std::string);
         HashEntry* getBucket(int);

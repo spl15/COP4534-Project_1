@@ -19,8 +19,8 @@ HashTable::HashTable()
 int HashTable::HashFunction(std::string key)
 {
     std::string::size_type i;
-    int total = 0;
-    int temp = 0;
+    long long total = 0;
+    long long temp = 0;
     for(i = 0; i<key.size();i++)
     {
         temp = (i+1) * key[i]  * 65537;
@@ -46,13 +46,13 @@ void HashTable::insertEntry(std::string tempID, std::string tempPassword )
    
     HashTable::buckets[placeHolder] = tempEntry;
 }
-void HashTable::find(std::string tempUser)
+HashEntry* HashTable::find(std::string tempUser)
 {
 
     bool found = false;
     int placeholder = HashTable::HashFunction(tempUser);
     
-    //for(int i = 0;i < (HashTable::NUM_OF_BUCKETS);i++)
+    HashEntry* entryPtr = NULL;
     {
         
         if(HashTable::getBucket(placeholder) != NULL)
@@ -63,6 +63,7 @@ void HashTable::find(std::string tempUser)
                 if(currentEntry->getUerID().compare(tempUser) == 0)
                 {
                     found = true;
+                    entryPtr = currentEntry;
                 }
 
                 currentEntry = currentEntry->getNext();
@@ -71,15 +72,18 @@ void HashTable::find(std::string tempUser)
            if(currentEntry->getUerID().compare(tempUser) == 0)
                 {
                     found = true;
+                    entryPtr = currentEntry;
                 }
         }
     }
     if(!found)
     {
         std::cout << tempUser << " is NOT in the table " << std::endl;
+        return entryPtr;
     }
     else
     {
-        std::cout << tempUser << " is in the table in bucket #" << placeholder << std::endl;
+        //std::cout << tempUser << " is in the table in bucket #" << placeholder << std::endl;
+        return entryPtr;
     }
 }
