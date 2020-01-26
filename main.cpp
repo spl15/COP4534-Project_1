@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 
     createTable("encrypted.txt", htPtr);
     std::cout << changeFirstLetter("lamalie") << std::endl;
-    //testEncryption("raw.txt",htPtr,5);
+    testEncryption("raw.txt",htPtr,5);
     
     return 0;
 }
@@ -55,10 +55,6 @@ void encryptPasswords(std::string myString)
             std::string password =line.substr(spacePosition);
             HashEntry he(userID);
             he.setPassword(password);
-            /*if(count < 5)
-            {
-                std::cout <<  count + 1 << "." << "expected encrypted password: " << encrypt(he.getPassword(),he.getUerID()) << "\t" << "key: " << he.getUerID() << "\t" << "plain text password: "<< he.getPassword()<< std::endl;
-            }*/
             outputTextFile << he.getUerID() << " " << encrypt(he.getPassword(),he.getUerID()) << std::endl;
             count++;
             
@@ -100,11 +96,6 @@ void createTable(std::string myString, HashTable* tablePtr)
             ++spacePosition;
             std::string password =line.substr(spacePosition);
             tablePtr->insertEntry(userID,password);
-            /*
-            if(count < 5)
-            {
-                std::cout << count + 1 << "." << "stored encrptped password: " << password  << "\t" << userID << std::endl;
-            }*/
             count++;
         }
 
@@ -212,12 +203,14 @@ void testEncryption(std::string file, HashTable* tablePtr, int numToTest)
             ++spacePosition;
             std::string password =line.substr(spacePosition);
                     
-            std::cout << count + 1 << "." << "expected encrypted password: " << encrypt(password, userID) << 
-            "   " <<"stored raw password: " << password  << "   " << "user ID: " <<userID << std::endl;
+            std::cout << count + 1 << "." << "Expected encrypted password: " << encrypt(password, userID) << 
+            "   " <<"Stored raw password: " << password  << "   " << "User ID: " <<userID << std::endl;
         
-            std::cout << "     actual password in table: " << tablePtr->find(userID)->getPassword() << std::endl;
 
+            std::cout << "     Actual password in table: " << tablePtr->find(userID)->getPassword() << std::endl;
 
+            std::cout << "  First letter does not match: " << encrypt(changeFirstLetter(password), userID) << "\n" << std::endl;
+            
             count++;
         }
         
@@ -237,7 +230,15 @@ std::string changeFirstLetter(std::string password)
     {
         if(i == 0)
         {
-            newPassword += password[i] + 1;
+            if(password[i] == 'z')
+            {
+                newPassword += password[i] - 1;
+            }
+            else
+            {
+                newPassword += password[i] + 1;
+            }
+                
         }
         else
         {
