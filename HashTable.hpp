@@ -7,15 +7,14 @@
 
 #ifndef HASHTABLE_HPP
 #define HASHTABLE_HPP
-#include <string>
-#include <iostream>
-#include "HashEntry.hpp"
 
+#include "HashEntry.hpp"
 
 class HashTable
 {       
     public:
         HashTable();
+        ~HashTable();
         void insertEntry(std::string, std::string);
         HashEntry* find(std::string);
         //void deleteEntry(HashEntry *);
@@ -24,7 +23,7 @@ class HashTable
 
     private:
         const int NUM_OF_BUCKETS = 90000;
-        HashEntry* buckets[90000];
+        HashEntry** buckets;
 };
 
 #endif

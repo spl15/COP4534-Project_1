@@ -12,23 +12,31 @@ void encryptPasswords(std::string);
 void createTable(std::string, HashTable*);
 void testEncryption(std::string, HashTable*, int);
 std::string changeFirstLetter(std::string);
+
+
 int main(int argc, char *argv[])
 {
+    // to seed a random time varibale
     srand(time(0));
-    
+    //reads the last names and creates random password for each
     readWritePasswords("lastNames.txt");
-
+    // reads passwords and encrypts them
     encryptPasswords("raw.txt");
 
     HashTable ht;
     HashTable* htPtr = &ht;
 
     createTable("encrypted.txt", htPtr);
-    std::cout << changeFirstLetter("lamalie") << std::endl;
+    //test the first 5 entries
     testEncryption("raw.txt",htPtr,5);
     
     return 0;
 }
+
+/*
+ * a method to take the file given as a parameter and encrypt the passwords(second column)
+ * and out put the results into a file named encrypted.txt
+ */
 void encryptPasswords(std::string myString)
 {
     //string variable for parsing the file line by line
@@ -69,6 +77,10 @@ void encryptPasswords(std::string myString)
     }
     
 }
+/*
+ * creates the HashTable from a file given as a string in the parameter
+ * 
+ */
 void createTable(std::string myString, HashTable* tablePtr)
 {
     int count = 0;
@@ -108,6 +120,10 @@ void createTable(std::string myString, HashTable* tablePtr)
     
 }
 
+/*
+ * encrypt function that encrypts on a vigenere cipher. Taking the first parameter 
+ * as the string to encrypt(password), and trhe second string as the key(userID) 
+ */
 std::string encrypt(std::string tempIn, std::string key)
 {
     //needed type to make compiler happy when comparing strings and ints
@@ -137,6 +153,10 @@ std::string encrypt(std::string tempIn, std::string key)
 
     return tempOut;
 }
+/*
+ * reads the first column of a file in as user names and creates a random
+ * password to match. Them stores the entries into a file named raw.txt
+ */
 void readWritePasswords(std::string myFile)
 {
     //string variable for parsing the file line by line
@@ -175,6 +195,10 @@ void readWritePasswords(std::string myFile)
     }
     
 }
+/*
+ * function to test the encryption to make sure what is output is the desired output. takes the first parameter as the file name,
+ * the HashTable object ptr as the second parameter, and the number of lines(entries) to test 
+ */
 void testEncryption(std::string file, HashTable* tablePtr, int numToTest)
 {
     int count = 0;
@@ -222,6 +246,9 @@ void testEncryption(std::string file, HashTable* tablePtr, int numToTest)
     }
     
 }
+/*
+ * changes the first letter of a string to the next letter unless 'z' then changes to 'y'
+ */
 std::string changeFirstLetter(std::string password)
 {
     std::string newPassword = "";

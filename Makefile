@@ -4,7 +4,7 @@
 
 CXX=g++
 OBJECTS= HashEntry.o main.o HashTable.o
-CXXFLAGS = -std=c++11 -c -g -Wall
+CXXFLAGS = -std=c++11 -c -g -Wall -s
 
 # all compiles both files and then links the object files to build the hash exe
 all: $(OBJECTS)
